@@ -1,0 +1,11 @@
+// Create Vaulet
+create_vault#21cfe02b query_id:uint64 asset:Asset = InMsgBody;
+
+//Asset Class
+native$0000 = Asset;
+jetton$0001 workchain_id:int8 address:uint256 = Asset;
+extra_currency$0010 currency_id:int32 = Asset;
+
+// Deposit
+deposit#b544f4a4 sender_addr:MsgAddressInt amount0:Coins amount1:Coins
+                 reserve0:Coins reserve1:Coins liquidity:Coins = ExtOutMsgBody;

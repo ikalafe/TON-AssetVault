@@ -1,0 +1,54 @@
+#include "imports/stdlib.fc";
+
+const int op::create_value = 0x21cfe02b;
+const int asset::native = 0;
+const int asset::jetton = 1;
+const int asset::extra_currency = 2;
+const int op::deposit = 0xb544f4a4;
+
+(int, int, int ,int) new_native_asset() inline {
+    return();
+}
+
+(int, int, int, int) new_jetton_asset(int workchain_id, int address) inline {
+    return();
+}
+
+(int, int, int, int) new_currency_asset(int currencry_id) inline {
+    return();
+}
+
+() send_deposit_message(
+    slice sender_addr,int amount0,
+    int amount1,int reserve0,int reserve1,int liquidity
+) impure {
+    var msg = begin_cell()  
+    .store_uint(0x18, 6)
+    .store_slice(sender_addr)
+    .store_uint(0, 0 + 1 + 4 + 4 + 64 + 32 + 1 + 1)
+    .store_uint(op::deposit, 32)
+    .store_coins(amount0)
+    .store_coins(amount1)
+    .store_coins(reserve0)
+    .store_coins(reserve1)
+    .store_coins(liquidity)
+    .end_cell();
+
+    send_raw_message(msg, 64);
+} 
+
+() deposit(slice in_msg_body) impure {
+    slice sender_addr = in_msg_body~load_msg_addr();
+    int amount0 = in_msg_body~load_coins();
+    int amount1 = in_msg_body~load_coins();
+
+    ;; logic of deposit
+    int reserve0 = in_msg_body~load_coins();
+    int reserve1 = in_msg_body~load_coins();
+    int liquidity = in_msg_body~load_coins();
+
+}
+
+() recv_internal(int my_balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+
+}
